@@ -1,4 +1,7 @@
 
+using EF_Relations.Data;
+using EF_Relations.Interfaces;
+using EF_Relations.Repository;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
@@ -11,7 +14,11 @@ namespace EF_Relations
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
+            //Add the mapper for mapping claas to dtoclass
             builder.Services.AddAutoMapper(typeof(Program));
+
+            builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
+            //json ignore
             builder.Services.AddControllersWithViews().AddNewtonsoftJson(options =>
             options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 
@@ -19,7 +26,7 @@ namespace EF_Relations
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
-
+            //Dtabase connnection
             builder.Services.AddDbContext<CustomerDbContext>(options
              => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 

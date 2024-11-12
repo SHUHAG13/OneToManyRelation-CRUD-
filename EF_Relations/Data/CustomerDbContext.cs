@@ -1,7 +1,6 @@
-﻿using EF_Relations.Data;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 
-namespace EF_Relations
+namespace EF_Relations.Data
 {
     public class CustomerDbContext : DbContext
     {
